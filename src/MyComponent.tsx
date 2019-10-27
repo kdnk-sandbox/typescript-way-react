@@ -13,7 +13,16 @@ interface BarProps {
 
 type Props = FooProps | BarProps;
 
-class MyComponent extends React.Component<Props> {}
+class MyComponent extends React.Component<Props> {
+  render() {
+    const props = this.props;
+    if (props.foo != undefined) {
+      return <p>foo is {props.foo}</p>;
+    } else {
+      return <p>bar's length is {props.bar.length}</p>
+    }
+  }
+}
 
 const e1 = <MyComponent foo={123} />
 const e2 = <MyComponent bar="foobar" />
