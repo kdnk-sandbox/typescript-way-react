@@ -3,37 +3,49 @@ import { render } from "react-dom";
 
 import "./styles.css";
 
+// interface State {
+//   isLoading: boolean;
+//   user?: {
+//     name: string;
+//   }
+// }
+
 interface State {
-  isLoading: boolean;
-  user?: {
+  user: {
+    isLoading: false;
     name: string;
+  } | {
+    isLoading: true;
   }
 }
 
+
 class App extends React.Component<{}, State> {
   state: State = {
-    isLoading: true,
-    user: undefined,
+    user: {
+      isLoading: true,
+    }
   };
 
   loadUserData = async () => {
-    // return {
-    //   name: 'Kodai',
-    // }
-    return undefined;
+    return {
+      name: 'Kodai',
+    }
   }
 
   componentDidMount() {
     this.loadUserData().then(user => {
       this.setState({
-        isLoading: false,
-        user,
+        user: {
+          isLoading: false,
+          name: user.name,
+        }
       });
     });
   }
 
   render() {
-    if (this.state.isLoading) {
+    if (this.state.user.isLoading) {
       return <p>読み込み中</p>
     }
 
