@@ -1,5 +1,9 @@
 import * as React from "react";
-import { render } from "react-dom";
+
+interface CommonProps {
+  hoge: string;
+  fuga: string;
+}
 
 interface FooProps {
   foo: number;
@@ -11,7 +15,7 @@ interface BarProps {
   bar: string;
 }
 
-type Props = FooProps | BarProps;
+type Props = CommonProps & (FooProps | BarProps);
 
 class MyComponent extends React.Component<Props> {
   render() {
@@ -24,6 +28,6 @@ class MyComponent extends React.Component<Props> {
   }
 }
 
-const e1 = <MyComponent foo={123} />
-const e2 = <MyComponent bar="foobar" />
-const e3 = <MyComponent foo={123} bar="foobar" />
+const e1 = <MyComponent hoge="foo" fuga="bar" foo={123} />
+const e2 = <MyComponent hoge="foo" fuga="bar" bar="foobar" />
+const e3 = <MyComponent hoge="foo" fuga="bar" foo={123} bar="foobar" />
